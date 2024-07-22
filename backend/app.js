@@ -33,6 +33,7 @@ const mongoose = require("mongoose");
 const mongoURL = require("./keys.js");
 require('./models/model.js');
 
+app.use(require("./routes/auth"));/* app.use is used to run middle ware */
 mongoose.connect(mongoURL);
 
 mongoose.connection.on("connected", () => {
