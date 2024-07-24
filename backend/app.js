@@ -24,24 +24,30 @@ app.get('/', (req, res) => {
 app.listen(PORT, () => {
     console.log(`server is running on port number ` + PORT);
 });
-*/
 
+*/
 const express = require("express");
 const app = express();
 const PORT = 5000;
 const mongoose = require("mongoose");
-const mongoURL = require("./keys.js");
-require('./models/model.js');
+/* i am accessing url from keys.js module */
+const mongoURL = require("./keys");
+/* to access database schema */
+require("./models/model");
 
-app.use(require("./routes/auth"));/* app.use is used to run middle ware */
+/* first data need to be parse to json first later it should be used in the project so we are writing below line  */
+
+app.use(express.json());
+app.use(require('./routes/auth'));
+
 mongoose.connect(mongoURL);
-
 mongoose.connection.on("connected", () => {
-    console.log("Mongoose is connected");
+    console.log("connected");
 })
 mongoose.connection.on("Error", () => {
     console.log("Error");
 })
+
 app.listen(PORT, () => {
-    console.log("server is running " + PORT);
+    console.log("Server Is Running On port " + PORT);
 })
